@@ -31,7 +31,7 @@ int
 main ()
 {
   int result;
-  result = multiply_two_numbers(10, 20);
+  result = multiply_two_numbers (10, 20);
 
   printf ("The result of 10*20 is: %d\n", result);
 
