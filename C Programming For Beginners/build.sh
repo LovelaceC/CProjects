@@ -33,3 +33,4 @@ gcc 32.FunctionReturn.c -o 32.FunctionReturn.o
 gcc 33.Challenge9.c -o 33.Challenge9.o
 gcc 34.Challenge10.c -o 34.Challenge10.o
 gcc 35.Strings.c -o 35.Strings.o
+gcc 36.StringFunctions.c -o 36.StringFunctions.o
