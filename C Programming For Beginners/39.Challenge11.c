@@ -47,6 +47,22 @@ concatenate_strings (char *dest, char *str1, char *str2)
     {
       dest[offset + i] = str2[i];
     }
+
+  /* The way jason (The instructor) did it.
+   *
+   * int i, j;
+   *
+   * for (i = 0; str1[i] != '\0'; ++i)
+   *   {
+   *      dest[i] = str1[i];
+   *   }
+   *
+   * for (j = 0; str2[j] != '\0'; j++)
+   *   {
+   *     dest[i + j] = str2[j];
+   *   }
+   *
+   * */
 }
 
 /* Returns true if `str1` is equals to `str2`. */
