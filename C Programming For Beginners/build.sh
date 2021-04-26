@@ -37,3 +37,4 @@ gcc 36.StringFunctions.c -o 36.StringFunctions.o
 gcc 37.MoreStringFunctions.c -o 37.MoreStringFunctions.o
 gcc 38.ConvertingStrings.c -o 38.ConvertingStrings.o
 gcc 39.Challenge11.c -o 39.Challenge11.o
+gcc 40.Challenge12.c -o 40.Challenge12.o
