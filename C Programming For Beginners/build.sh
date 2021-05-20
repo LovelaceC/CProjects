@@ -41,3 +41,6 @@ gcc 40.Challenge12.c -o 40.Challenge12.o
 gcc 41.DefiningPointers.c -o 41.DefiningPointers.o
 gcc 42.AccessingPointers.c -o 42.AccessingPointers.o
 gcc 43.Challenge13.c -o 43.Challenge13.o
+gcc 44.ConstPointers.c -o 44.ConstPointers.o
+gcc 45.PointerArithmetic.c -o 45.PointerArithmetic.o
+gcc 46.PointerArray.c -o 46.PointerArray.o
