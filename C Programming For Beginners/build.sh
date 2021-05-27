@@ -49,3 +49,4 @@ gcc 48.Challenge14.c -o 48.Challenge14.o
 gcc 49.PassByReference.c -o 49.PassByReference.o
 gcc 50.Challenge15.c -o 50.Challenge15.o
 gcc 51.DynamicMemory.c -o 51.DynamicMemory.o
+gcc 52.Challenge16.c -o 52.Challenge16.o
