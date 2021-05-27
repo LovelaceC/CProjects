@@ -46,3 +46,4 @@ gcc 45.PointerArithmetic.c -o 45.PointerArithmetic.o
 gcc 46.PointerArray.c -o 46.PointerArray.o
 gcc 47.PointersAndStrings.c -o 47.PointersAndStrings.o
 gcc 48.Challenge14.c -o 48.Challenge14.o
+gcc 49.PassByReference.c -o 49.PassByReference.o
