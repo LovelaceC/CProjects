@@ -50,3 +50,6 @@ gcc 49.PassByReference.c -o 49.PassByReference.o
 gcc 50.Challenge15.c -o 50.Challenge15.o
 gcc 51.DynamicMemory.c -o 51.DynamicMemory.o
 gcc 52.Challenge16.c -o 52.Challenge16.o
+gcc 53.CreatingStructures.c -o 53.CreatingStructures.o
+gcc 54.ArraysOfStructures.c -o 54.ArraysOfStructures.o
+gcc 55.NestedStructures.c -o 55.NestedStructures.o
