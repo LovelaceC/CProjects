@@ -53,3 +53,4 @@ gcc 52.Challenge16.c -o 52.Challenge16.o
 gcc 53.CreatingStructures.c -o 53.CreatingStructures.o
 gcc 54.ArraysOfStructures.c -o 54.ArraysOfStructures.o
 gcc 55.NestedStructures.c -o 55.NestedStructures.o
+gcc 56.StructuresAndPointers.c -o 56.StructuresAndPointers.o
