@@ -58,3 +58,4 @@ gcc 57.StructuresAndFunctions.c -o 57.StructuresAndFunctions.o
 gcc 58.Challenge17.c -o 58.Challenge17.o
 gcc 59.Challenge18.c -o 59.Challenge18.o
 gcc 60.AccessingFiles.c -o 60.AccessingFiles.o
+gcc 61.ReadingFiles.c -o 61.ReadingFiles.o
