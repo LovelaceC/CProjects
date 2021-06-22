@@ -59,3 +59,4 @@ gcc 58.Challenge17.c -o 58.Challenge17.o
 gcc 59.Challenge18.c -o 59.Challenge18.o
 gcc 60.AccessingFiles.c -o 60.AccessingFiles.o
 gcc 61.ReadingFiles.c -o 61.ReadingFiles.o
+gcc 62.WritingToAFile.c -o 62.WritingToAFile.o
