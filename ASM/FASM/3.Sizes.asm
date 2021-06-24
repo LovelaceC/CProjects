@@ -12,7 +12,7 @@ Name : sizes
 .code
 
 main proc
-    
+
     main endp
 
 end

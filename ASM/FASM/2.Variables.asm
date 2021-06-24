@@ -8,7 +8,7 @@ Name : variables
 .code
 
 main proc
-    
+
     main endp
 
 end

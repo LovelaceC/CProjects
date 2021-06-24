@@ -8,7 +8,7 @@ Name : constants
 .code
 
 main proc
-    
+
     main endp
 
 end

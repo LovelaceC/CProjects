@@ -5,7 +5,7 @@ Name : test
 
 .code
 main proc
-    
+
     main endp
 
 end
