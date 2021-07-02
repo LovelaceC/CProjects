@@ -4,7 +4,7 @@
 
 #include <GL/freeglut.h>
 
-#include "utils/math.h"
+#include <lib/math.h>
 
 GLuint VBO;
 

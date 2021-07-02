@@ -6,8 +6,8 @@
 
 #include <GL/freeglut.h>
 
-#include "utils/math.h"
-#include "utils/util.h"
+#include <lib/math.h>
+#include <lib/util.h>
 
 GLuint VBO;
 
