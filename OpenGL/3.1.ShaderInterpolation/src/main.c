@@ -5,21 +5,25 @@
 
 #include <GLFW/glfw3.h>
 
-const char *vertex_shader_source
-    = "#version 330 core\n"
-      "layout (location = 0) in vec3 a_pos;\n"
-      "void main()\n"
-      "{\n"
-      "gl_Position = vec4 (a_pos.x, a_pos.y, a_pos.z, 1.0f);"
-      "}\0";
+#include <math.h>
 
-const char *fragment_shader_source
-    = "#version 330 core\n"
-      "out vec4 FragColor;\n"
-      "void main ()\n"
-      "{\n"
-      "FragColor = vec4 (1.0f, 0.5f, 0.2f, 1.0f);\n"
-      "}\n";
+const char *vertex_shader_source = "#version 330 core\n"
+                                   "layout (location = 0) in vec3 a_pos;\n"
+                                   "layout (location = 1) in vec3 a_color;\n"
+                                   "out vec3 our_color;\n"
+                                   "void main()\n"
+                                   "{\n"
+                                   "gl_Position = vec4 (a_pos, 1.0f);"
+                                   "our_color = a_color;\n"
+                                   "}\0";
+
+const char *fragment_shader_source = "#version 330 core\n"
+                                     "out vec4 FragColor;\n"
+                                     "in vec3 our_color;\n"
+                                     "void main ()\n"
+                                     "{\n"
+                                     "FragColor = vec4 (our_color, 1.0);\n"
+                                     "}\n";
 
 void
 processInput (GLFWwindow *window)
@@ -113,27 +117,20 @@ main (int argc, char **argv)
   glDeleteShader (vertex_shader);
   glDeleteShader (fragment_shader);
 
+  float vertices[] = {
+    // positions        // colors
+    0.5f,  -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom right
+    -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom left
+    0.0f,  0.5f,  0.0f, 0.0f, 0.0f, 1.0f  // top
+  };
+
   glViewport (0, 0, 1280, 720);
   glfwSetFramebufferSizeCallback (window, framebuffer_size_callback);
 
-  float vertices[] = {
-    0.5f,  0.5f,  0.0f, // top right
-    0.5f,  -0.5f, 0.0f, // bottom right
-    -0.5f, -0.5f, 0.0f, // bottom left
-    -0.5f, 0.5f,  0.0f  // top left
-  };
-
-  unsigned int indices[] = {
-    0, 1, 3, // first triangle
-    1, 2, 3  // second triangle
-  };
-
-  unsigned int VBO, VAO, EBO;
+  unsigned int VBO, VAO;
 
   glGenVertexArrays (1, &VAO);
-
   glGenBuffers (1, &VBO);
-  glGenBuffers (1, &EBO);
 
   // Bind vertex array object
   glBindVertexArray (VAO);
@@ -142,41 +139,45 @@ main (int argc, char **argv)
   glBindBuffer (GL_ARRAY_BUFFER, VBO);
   glBufferData (GL_ARRAY_BUFFER, sizeof (vertices), vertices, GL_STATIC_DRAW);
 
-  glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData (GL_ELEMENT_ARRAY_BUFFER, sizeof (indices), indices,
-                GL_STATIC_DRAW);
-
   // Set the vertex attributes pointers
-  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof (float),
+  glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof (float),
                          (void *)0);
   glEnableVertexAttribArray (0);
+
+  // Color attribute
+  glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof (float),
+                         (void *)(3 * sizeof (float)));
+  glEnableVertexAttribArray (1);
 
   // Render loop
   while (!glfwWindowShouldClose (window))
     {
-      glClearColor (0.2f, 0.3f, 0.3f, 1.0f);
-      glClear (GL_COLOR_BUFFER_BIT);
-
       // Process input
       processInput (window);
 
-      // Draw the object
-      glUseProgram (shader_program);
-      glBindVertexArray (VAO);
+      // Render
 
-      // glDrawArrays (GL_TRIANGLES, 0, 3);
-      glDrawElements (GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-      glBindVertexArray (0);
+      // Clear the colorbuffer
+      glClearColor (0.2f, 0.3f, 0.3f, 1.0f);
+      glClear (GL_COLOR_BUFFER_BIT);
+
+      // Activate the shader
+      glUseProgram (shader_program);
+
+      // Update the uniform color
+      float time_value = glfwGetTime ();
+      float green_value = (sin (time_value) / 2.0f) + 0.5f;
+      int vertex_color_location
+          = glGetUniformLocation (shader_program, "our_color");
+      glUniform4f (vertex_color_location, 0.0f, green_value, 0.0f, 1.0f);
+
+      glBindVertexArray (VAO);
+      glDrawArrays (GL_TRIANGLES, 0, 3);
 
       // Check and call events and swap the buffers
       glfwSwapBuffers (window);
       glfwPollEvents ();
     }
-
-  glDeleteVertexArrays (1, &VAO);
-  glDeleteBuffers (1, &VBO);
-  glDeleteBuffers (1, &EBO);
-  glDeleteProgram (shader_program);
 
   glfwTerminate ();
 
