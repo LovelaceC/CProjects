@@ -5,3 +5,5 @@ a.out
 
 glad.h
 glad.c
+
+stb_image.h
