@@ -7,7 +7,7 @@
 
 #include <math.h>
 
-#include "shader/shader.h"
+#include <shader.h>
 
 void
 processInput (GLFWwindow *window)
@@ -52,8 +52,8 @@ main (int argc, char **argv)
     }
 
   // Build and compile our shader program
-  struct shader *shader = shader_create ("src/shader/shaders/shader.vs",
-                                         "src/shader/shaders/shader.fs");
+  struct shader *shader
+      = shader_create ("src/shaders/shader.vs", "src/shaders/shader.fs");
 
   // Setup vertex data
   float vertices[] = {

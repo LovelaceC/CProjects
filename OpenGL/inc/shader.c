@@ -3,7 +3,15 @@
 struct shader *
 shader_create (const char *vertex_path, const char *fragment_path)
 {
+  // First, we define the variables
   struct shader *shader;
+
+  char *vertex_code = NULL;
+  char *fragment_code = NULL;
+
+  FILE *fragment_file = NULL;
+  FILE *vertex_file = NULL;
+
   shader = malloc (sizeof (struct shader));
 
   if (!shader)
@@ -11,12 +19,6 @@ shader_create (const char *vertex_path, const char *fragment_path)
       fprintf (stderr, "Error allocating memory for `shader'.\n");
       goto out;
     }
-
-  char *vertex_code = NULL;
-  char *fragment_code = NULL;
-
-  FILE *fragment_file = NULL;
-  FILE *vertex_file = NULL;
 
   vertex_file = fopen (vertex_path, "r");
   if (!vertex_file)
@@ -30,13 +32,21 @@ shader_create (const char *vertex_path, const char *fragment_path)
   fseek (vertex_file, 0, SEEK_SET);
 
   vertex_code = malloc (sizeof (char) * vertex_len + 1);
+
   if (!vertex_code)
     {
       fprintf (stderr, "Error allocating memory for `vertex_code'.\n");
       goto out;
     }
 
-  fread (vertex_code, vertex_len + 1, 1, vertex_file);
+  memset (vertex_code, 0, sizeof (char) * vertex_len + 1);
+  if (!vertex_code)
+    {
+      fprintf (stderr, "Error allocating memory for `vertex_code'.\n");
+      goto out;
+    }
+
+  fread (vertex_code, vertex_len, 1, vertex_file);
 
   // Vertex shader successfully read
   fclose (vertex_file);
@@ -53,6 +63,14 @@ shader_create (const char *vertex_path, const char *fragment_path)
   fseek (fragment_file, 0, SEEK_SET);
 
   fragment_code = malloc (sizeof (char) * fragment_len + 1);
+
+  if (!fragment_code)
+    {
+      fprintf (stderr, "Error allocating memory for `fragment_code'.\n");
+      goto out;
+    }
+
+  memset (fragment_code, 0, sizeof (char) * fragment_len + 1);
   if (!fragment_code)
     {
       fprintf (stderr, "Error allocating memory for `fragment_code'.\n");
@@ -60,7 +78,6 @@ shader_create (const char *vertex_path, const char *fragment_path)
     }
 
   fread (fragment_code, fragment_len, 1, fragment_file);
-  fragment_code[fragment_len + 1] = '\0';
 
   // Fragment shader read successfully
   fclose (fragment_file);
@@ -126,17 +143,24 @@ shader_create (const char *vertex_path, const char *fragment_path)
   glDeleteShader (vertex);
   glDeleteShader (fragment);
 
-  // Free allocations
-  free (vertex_code);
-  free (fragment_code);
+out:
 
-  vertex_code = NULL;
-  fragment_code = NULL;
+  // Free allocations
+  if (vertex_code != NULL)
+    {
+      free (vertex_code);
+      vertex_code = NULL;
+    }
+
+  if (fragment_code != NULL)
+    {
+      free (fragment_code);
+      fragment_code = NULL;
+    }
 
   vertex_file = NULL;
   fragment_file = NULL;
 
-out:
   return shader;
 }
 
@@ -162,4 +186,43 @@ void
 shader_set_float (struct shader shader, const char *name, float val)
 {
   glUniform1f (glGetUniformLocation (shader.id, name), val);
+}
+
+void
+shader_set_vec2 (struct shader shader, const char *name, vec2 val)
+{
+  glUniform2fv (glGetUniformLocation (shader.id, name), 1, val);
+}
+
+void
+shader_set_vec3 (struct shader shader, const char *name, vec3 val)
+{
+  glUniform3fv (glGetUniformLocation (shader.id, name), 1, val);
+}
+
+void
+shader_set_vec4 (struct shader shader, const char *name, vec4 val)
+{
+  glUniform4fv (glGetUniformLocation (shader.id, name), 1, val);
+}
+
+void
+shader_set_mat2 (struct shader shader, const char *name, mat2 val)
+{
+  glUniformMatrix2fv (glGetUniformLocation (shader.id, name), 1, GL_FALSE,
+                      val[0]);
+}
+
+void
+shader_set_mat3 (struct shader shader, const char *name, mat3 val)
+{
+  glUniformMatrix3fv (glGetUniformLocation (shader.id, name), 1, GL_FALSE,
+                      val[0]);
+}
+
+void
+shader_set_mat4 (struct shader shader, const char *name, mat4 val)
+{
+  glUniformMatrix4fv (glGetUniformLocation (shader.id, name), 1, GL_FALSE,
+                      val[0]);
 }

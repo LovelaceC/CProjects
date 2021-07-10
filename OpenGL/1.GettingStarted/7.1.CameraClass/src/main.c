@@ -9,9 +9,9 @@
 
 #include <cglm/cglm.h>
 
-#include "shader/shader.h"
+#include <shader.h>
 
-#include "camera/camera.h"
+#include <camera.h>
 
 // Camera
 struct camera camera = { 0 };
@@ -114,8 +114,8 @@ main (int argc, char **argv)
   glEnable (GL_DEPTH_TEST);
 
   // Build and compile our shader program
-  struct shader *shader = shader_create ("src/shader/shaders/shader.vs",
-                                         "src/shader/shaders/shader.fs");
+  struct shader *shader
+      = shader_create ("src/shaders/shader.vs", "src/shaders/shader.fs");
 
   // Create camera
   camera_init (&camera);

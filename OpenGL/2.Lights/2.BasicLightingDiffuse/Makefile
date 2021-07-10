@@ -1,6 +1,6 @@
 CC=gcc
 
-FLAGS=-Werror -Iinc -I../../inc
+FLAGS=-Werror -Iinc -I../../inc -O0 -g
 LIBS=-lm -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
 
 FILES=build/main.o build/lib/glad.o ../../inc/shader.o ../../inc/camera.o

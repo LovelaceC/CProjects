@@ -11,7 +11,7 @@
 
 #include <cglm/cglm.h>
 
-#include "shader/shader.h"
+#include <shader.h>
 
 void
 processInput (GLFWwindow *window)
@@ -58,8 +58,8 @@ main (int argc, char **argv)
   glEnable (GL_DEPTH_TEST);
 
   // Build and compile our shader program
-  struct shader *shader = shader_create ("src/shader/shaders/shader.vs",
-                                         "src/shader/shaders/shader.fs");
+  struct shader *shader
+      = shader_create ("src/shaders/shader.vs", "src/shaders/shader.fs");
 
   float vertices[]
       = { -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.5f,  -0.5f, -0.5f, 1.0f, 0.0f,

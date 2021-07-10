@@ -1,9 +1,9 @@
 CC=gcc
 
-FLAGS=-Wall -Werror -Iinc
+FLAGS=-Wall -Werror -Iinc -I../../inc
 LIBS=-lm -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
 
-FILES=build/main.o build/lib/glad.o build/shader/shader.o
+FILES=build/main.o build/lib/glad.o ../../inc/shader.o
 OUT=bin/a.out
 
 all: $(FILES)
@@ -15,7 +15,7 @@ build/main.o: src/main.c
 build/lib/glad.o: src/lib/glad.c
 	$(CC) $(FLAGS) $< -c -o $@ $(LIBS)
 
-build/shader/shader.o: src/shader/shader.c
+../../inc/shader.o: ../../inc/shader.c
 	$(CC) $(FLAGS) $< -c -o $@ $(LIBS)
 
 run: all
